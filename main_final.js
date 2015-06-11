@@ -14,7 +14,7 @@ var daten = []; //Whether or not a set is to be showed. Bool
 var datcolors = []; //Colors. Str
 var datlim = '500'; //How many entries it can take. Int
 
-var initcolors = ['#e74c3c','#e67e22','#f1c40f','#1abc9c','#2ecc71','#3498db','#9b59b6','#34495e']
+var initcolors = ['#e74c3c','#e67e22','#f1c40f','#2ecc71','#1abc9c','#3498db','#9b59b6','#34495e']
 
 var tdatlist = {}; //Top data list. For top 5 list
 
@@ -36,8 +36,8 @@ var datscale = 6; //Scalar of radius size
 var datexp = 3; //Exponent of vote/voteavg of radius size
 
 //For creating display for SVG
-var height = $(window).height()-48;//Was 500
-var width = $(window).width()-172;//Was 628
+var height = $(window).height()-0;//Was 500
+var width = $(window).width()-252;//Was 628
 
 //Create projection for SVG
 var projection = d3.geo.mercator()
@@ -118,8 +118,8 @@ function updatewindow()
 	d3.select(divwa).selectAll("div").remove();
 	d3.select(divwa).selectAll("svg").remove();
 	
-	height = $(window).height()-48;//Was 500
-	width = $(window).width()-172;//Was 628
+	height = $(window).height()-0;//Was 500
+	width = $(window).width()-252;//Was 628
 
 //Create projection for SVG
 	projection = d3.geo.mercator()
@@ -196,8 +196,8 @@ function updateopt()
 	var options = document.getElementsByClassName('option')[0];
 	if(optmenu)
 	{
-		options.style.left = '152px';
-		options.style.top = '48px';
+		options.style.left = '203px';
+		options.style.top = '55px';
 	}
 	else
 	{
@@ -231,23 +231,45 @@ function updatelist() //Update list html
 	var e = document.getElementById("opt_topsel");
 	var i = e.options[e.selectedIndex].value;
 
+	document.getElementById("co0").checked = false;
+	document.getElementById("co1").checked = false;
+	document.getElementById("co2").checked = false;
+	document.getElementById("co3").checked = false;
+	document.getElementById("co4").checked = false;
+	document.getElementById("co5").checked = false;
+	document.getElementById("co6").checked = false;
+	document.getElementById("co7").checked = false;
+
 	var tlist = document.getElementById('top');
 	var tdat = {};
 	if(i == -1)
 	{
 		tdat = updatetdatlist();
+		for (var f in fdat)
+		{
+			if(daten[f])
+			{
+				document.getElementById("co"+f).checked = true;
+			}
+		}
 	}
 	else
 	{
 		tdat = fdat[i];
+		document.getElementById("co"+i).checked = true;
 	}
 	var len = tdat.length;
 	tlist.innerHTML = '<br>';
-	tlist.innerHTML += '1.<a href="'+tdat[0].wiki_url+'" target="_blank">'+tdat[0].loc_name+'</a><br>';
-	tlist.innerHTML += '2.<a href="'+tdat[1].wiki_url+'" target="_blank">'+tdat[1].loc_name+'</a><br>';
-	tlist.innerHTML += '3.<a href="'+tdat[2].wiki_url+'" target="_blank">'+tdat[2].loc_name+'</a><br>';
-	tlist.innerHTML += '4.<a href="'+tdat[3].wiki_url+'" target="_blank">'+tdat[3].loc_name+'</a><br>';
-	tlist.innerHTML += '5.<a href="'+tdat[4].wiki_url+'" target="_blank">'+tdat[4].loc_name+'</a><br>';
+	tlist.innerHTML += '<div class="item"><div class="name">1.&nbsp&nbsp'+tdat[0].loc_name+'</div><img src="content/'+tdat[0].image+'" alt="'+tdat[0].loc_name+'"align="right"></div>';
+	tlist.innerHTML += '<div class="item"><div class="name">2.&nbsp&nbsp'+tdat[1].loc_name+'</div><img src="content/'+tdat[1].image+'" alt="'+tdat[1].loc_name+'"align="right"></div>';
+	tlist.innerHTML += '<div class="item"><div class="name">3.&nbsp&nbsp'+tdat[2].loc_name+'</div><img src="content/'+tdat[2].image+'" alt="'+tdat[2].loc_name+'"align="right"></div>';
+	tlist.innerHTML += '<div class="item"><div class="name">4.&nbsp&nbsp'+tdat[3].loc_name+'</div><img src="content/'+tdat[3].image+'" alt="'+tdat[3].loc_name+'"align="right"></div>';
+	tlist.innerHTML += '<div class="item"><div class="name">5.&nbsp&nbsp'+tdat[4].loc_name+'</div><img src="content/'+tdat[4].image+'" alt="'+tdat[4].loc_name+'"align="right"></div>';
+	tlist.innerHTML += '<div class="item"><div class="name">6.&nbsp&nbsp'+tdat[5].loc_name+'</div><img src="content/'+tdat[5].image+'" alt="'+tdat[5].loc_name+'"align="right"></div>';
+	tlist.innerHTML += '<div class="item"><div class="name">7.&nbsp&nbsp'+tdat[6].loc_name+'</div><img src="content/'+tdat[6].image+'" alt="'+tdat[6].loc_name+'"align="right"></div>';
+	tlist.innerHTML += '<div class="item"><div class="name">8.&nbsp&nbsp'+tdat[7].loc_name+'</div><img src="content/'+tdat[7].image+'" alt="'+tdat[7].loc_name+'"align="right"></div>';
+	tlist.innerHTML += '<div class="item"><div class="name">9.&nbsp&nbsp'+tdat[8].loc_name+'</div><img src="content/'+tdat[8].image+'" alt="'+tdat[8].loc_name+'"align="right"></div>';
+	tlist.innerHTML += '<div class="item"><div class="name">10.&nbsp'+tdat[9].loc_name+'</div><img src="content/'+tdat[9].image+'" alt="'+tdat[9].loc_name+'"align="right"></div>';
 }
 
 function updatetdatlist() //Update tdat for list
@@ -687,18 +709,18 @@ function mapit() //Update circles on map
 				ttdiv.html('<a href="'+d.wiki_url+'" target="_blank">'+d.loc_name+'</a><img src="content/'+d.image+'" alt="'+d.loc_name+'" style="width:100px;height:100px;" align="right"><p>'+d.desc.substring(0,200)+'...</p>')
 					.style("left", function(d)
 					{
-						if(d3.event.pageX < width-148)
+						if(d3.event.pageX+316 < width+252)
 						{
-							return (d3.event.pageX+14)+'px'
+							return (d3.event.pageX+12)+'px'
 						}
 						else
 						{
-							return (d3.event.pageX-314)+'px'
+							return (d3.event.pageX-312)+'px'
 						}
 					})
 					.style("top", function(d)
 					{
-						if(d3.event.pageY < height/2 + 24)
+						if(d3.event.pageY < height/2)
 						{
 							return (d3.event.pageY-28)+'px'
 						}
@@ -759,21 +781,22 @@ function mapit() //Update circles on map
 					.on("mouseover", function(d)
 					{
 						ttdiv.transition().duration(200).style("opacity", 0.9)
-						ttdiv.html('<a href="'+d.wiki_url+'" target="_blank">'+d.loc_name+'</a><img src="content/'+d.image+'" alt="'+d.loc_name+'" style="width:100px;height:100px;" align="right"><p>'+d.desc.substring(0,200)+'...</p>')
+						ttdiv.html('<img src="content/'+d.image+'" alt="'+d.loc_name+'" style="width:100px;height:100px;" align="right"><a href="'+d.wiki_url+'" target="_blank">'+d.loc_name+'</a><p>'+d.desc.substring(0,320)+'...</p>')
 							.style("left", function(d)
 							{
-								if(d3.event.pageX < width-148)
+								console.log(d3.event.pageX);
+								if(d3.event.pageX+316 < width+252)
 								{
-									return (d3.event.pageX+14)+'px'
+									return (d3.event.pageX+12)+'px'
 								}
 								else
 								{
-									return (d3.event.pageX-314)+'px'
+									return (d3.event.pageX-312)+'px'
 								}
 							})
 							.style("top", function(d)
 							{
-								if(d3.event.pageY < height/2 + 24)
+								if(d3.event.pageY < height/2)
 								{
 									return (d3.event.pageY-28)+'px'
 								}

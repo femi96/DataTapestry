@@ -17,69 +17,361 @@ body
 	background-color: #9B9382;
 	margin: 0px;
 }
-
-.head
-{
-	float: left;
-	height: 48px;
-	width: 100%;
-	font-size: 32px;
-	background-color: #f8f4eb;/*f2e9d8*/
-	padding-top: 8px;
-	padding-left: 16px;
-}
-/*This is for left column.*/
 .col
 {
 	float: left;
-	height: calc(100% - 48px);
-	width: 172px;
-	background-color: #F5EDE0;
+	height: 100%;
+	width: 252px;
+	background-color: #F6F0E6; /*was F5EDE0*/
 	padding-top: 8px;
 }
 
+.top
+{
+	float: left;
+	width: 252px;
+	height: 64px;
+}
+	.top .top_title
+	{
+		float: left;
+		width: 252px;
+		font-size: 36px;
+		text-align: center;
+	}
+	.top .sub
+	{
+		float: left;
+		width: 252px;
+		font-size: 16px;
+		text-align: center;
+	}
+	.top .divider
+	{
+		float: left;
+		margin-top: 0px;
+		margin-left: 33px;
+		width: 186px;
+		border-top-style: solid;
+		border-color: #BEBCA9;
+		border-width: 1px;
+		text-align: center;
+	}
+
 .metric
 {
-	height: 346px;
-	width: 162px;
+	float: left;
+	width: 252px;
+	height: 330px;
+	margin-top: 12px;
 	background-color: none;
-	padding-top: 16px;
-	padding-left: 16px;
 }
+	.metric .title
+	{
+		float: left;
+		margin-left: 8px;
+	}
+	.metric .divider
+	{
+		float: left;
+		width: 204px;
+		margin-top: 1px;
+		margin-left: 0px;
+		margin-bottom: 1px;
+		border-top-style: solid;
+		border-color: #BEBCA9;
+		border-width: 1px;
+		text-align: center;
+	}
+	.metric label
+	{
+		float: left;
+		width: 194px;
+		height: 30px;
+		margin-top: 4px;
+		margin-left: 4px;
+		margin-bottom: 4px;
+		background-color: none;
+	}
+	.metric label span
+	{
+		text-align: left;
+		display: block;
+		height: 30px;
+		border-style: solid;
+		border-color: grey;
+		border-width: 1px;
+		border-radius: 2px;
+		color: #AD986D;
+		padding-left:4px;
+		padding-top: 3px;
+	}
+	.metric label input
+	{
+		position: absolute;
+		top: -20px;
+	}
+	.metric label input:checked + span
+	{
+		background-color: #AD986D;
+		border-color: #AD986D;
+		color: #FFFFFF;
+	}
+	.metric label input:hover + span
+	{
+		background-color: #CDB68A;
+		border-color: #CDB68A;
+		color: #FFFFFF;
+	}
+		.metric label #scheck0+span
+		{
+			color: #e74c3c;
+		}
+		.metric label #scheck0:checked + span
+		{
+			background-color: #e74c3c;
+			border-color: #e74c3c;
+			color: #ffffff;
+		}
+		.metric label #scheck0:hover + span
+		{
+			background-color: #e74c3c;
+			border-color: #e74c3c;
+			color: #ffffff;
+		}
+		.metric label #scheck1+span
+		{
+			color: #e67e22;
+		}
+		.metric label #scheck1:checked + span
+		{
+			background-color: #e67e22;
+			border-color: #e67e22;
+			color: #ffffff;
+		}
+		.metric label #scheck1:hover + span
+		{
+			background-color: #e67e22;
+			border-color: #e67e22;
+			color: #ffffff;
+		}
+		.metric label #scheck2+span
+		{
+			color: #f1c40f;
+		}
+		.metric label #scheck2:checked + span
+		{
+			background-color: #f1c40f;
+			border-color: #f1c40f;
+			color: #ffffff;
+		}
+		.metric label #scheck2:hover + span
+		{
+			background-color: #f1c40f;
+			border-color: #f1c40f;
+			color: #ffffff;
+		}
+		.metric label #scheck3+span
+		{
+			color: #2ecc71;
+		}
+		.metric label #scheck3:checked + span
+		{
+			background-color: #2ecc71;
+			border-color: #2ecc71;
+			color: #ffffff;
+		}
+		.metric label #scheck3:hover + span
+		{
+			background-color: #2ecc71;
+			border-color: #2ecc71;
+			color: #ffffff;
+		}
+		.metric label #scheck4+span
+		{
+			color: #1abc9c;
+		}
+		.metric label #scheck4:checked + span
+		{
+			background-color: #1abc9c;
+			border-color: #1abc9c;
+			color: #ffffff;
+		}
+		.metric label #scheck4:hover + span
+		{
+			background-color: #1abc9c;
+			border-color: #1abc9c;
+			color: #ffffff;
+		}
+		.metric label #scheck5+span
+		{
+			color: #3498db;
+		}
+		.metric label #scheck5:checked + span
+		{
+			background-color: #3498db;
+			border-color: #3498db;
+			color: #ffffff;
+		}
+		.metric label #scheck5:hover + span
+		{
+			background-color: #3498db;
+			border-color: #3498db;
+			color: #ffffff;
+		}
+		.metric label #scheck6+span
+		{
+			color: #9b59b6;
+		}
+		.metric label #scheck6:checked + span
+		{
+			background-color: #9b59b6;
+			border-color: #9b59b6;
+			color: #ffffff;
+		}
+		.metric label #scheck6:hover + span
+		{
+			background-color: #9b59b6;
+			border-color: #9b59b6;
+			color: #ffffff;
+		}
+		.metric label #scheck7+span
+		{
+			color: #34495e;
+		}
+		.metric label #scheck7:checked + span
+		{
+			background-color: #34495e;
+			border-color: #34495e;
+			color: #ffffff;
+		}
+		.metric label #scheck7:hover + span
+		{
+			background-color: #34495e;
+			border-color: #34495e;
+			color: #ffffff;
+		}
 
 .rank
 {
-	position: relative;
-	top: 14px;
-	height: 148px;
-	width: 162px;
-	padding-top: 4px;
-	padding-left: 16px;
-	white-space: nowrap;
-	overflow: hidden;
+	float: left;
+	width: 252px;
+	margin-top: 12px;
 }
-	.rank span
+	.rank .title
 	{
-		color: #444444;
-		position: relative;
+		float: left;
+		width: 72px;
+		margin-left: 8px;
+	}
+	.rank .divider
+	{
+		float: left;
+		width: 204px;
+		margin-top: 1px;
+		margin-left: 0px;
+		margin-bottom: 4px;
+		border-top-style: solid;
+		border-color: #BEBCA9;
+		border-width: 1px;
+		text-align: center;
+	}
+	.rank .ind
+	{
+		float: left;
+		width: 96px;
+		height: 22px;
+		margin-left: 6px;
+	}
+		.rank .ind div
+		{
+			float: left;
+			width: 8px;
+			height: 16px;
+			margin-left: 2px;
+			margin-top: 4px;
+			margin-right: 2px;
+		}
+		.rank .ind div span
+		{
+			float: left;
+			width: 8px;
+			height: 16px;
+			border-style: solid;
+			border-width: 1px;
+			border-color: grey;
+		}
+		.rank .ind input
+		{
+			position: absolute;
+			top: -20px;
+		}
+			.rank .ind .bo0 input:checked + span
+			{
+				background-color: #e74c3c;
+				border-color: #e74c3c;
+			}
+			.rank .ind .bo1 input:checked + span
+			{
+				background-color: #e67e22;
+				border-color: #e67e22;
+			}
+			.rank .ind .bo2 input:checked + span
+			{
+				background-color: #f1c40f;
+				border-color: #f1c40f;
+			}
+			.rank .ind .bo3 input:checked + span
+			{
+				background-color: #2ecc71;
+				border-color: #2ecc71;
+			}
+			.rank .ind .bo4 input:checked + span
+			{
+				background-color: #1abc9c;
+				border-color: #1abc9c;
+			}
+			.rank .ind .bo5 input:checked + span
+			{
+				background-color: #3498db;
+				border-color: #3498db;
+			}
+			.rank .ind .bo6 input:checked + span
+			{
+				background-color: #9b59b6;
+				border-color: #9b59b6;
+			}
+			.rank .ind .bo7 input:checked + span
+			{
+				background-color: #34495e;
+				border-color: #34495e;
+			}
+	.rank .item
+	{
+		float: left;
+		width: 252px;
+		margin-bottom: 1px;
+	}
+	.rank .name
+	{
+		float: left;
+		width: 180px;
+		margin-left: 8px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 		font-size: 15px;
-		left: -12px;
-		top: -16px;
-	}
-	.rank span a:link
-	{
 		color: #444444;
-		text-decoration: none;
 	}
-	.rank span a:visited
+	.rank img
 	{
-		color: #444444;
-		text-decoration: none;
-	}
-	.rank span a:hover
-	{
-		color: black;
-		text-decoration: none;
+		float: left;
+		width: 32px;
+		height: 22px;
+		margin-left: 15px;
+		border-style: solid;
+		border-color: black;
+		border-width: 1px;
 	}
 
 .option
@@ -230,221 +522,67 @@ body
 .col #opt_on_lab
 {
 	position: absolute;
-	height: 24px;
-	width: 24px;
-	top: 416px;
-	left: 128px;
+	height: 18px;
+	width: 18px;
+	top: 429px;
+	left: 185px;
 	background-color: none;
 }
-.col #opt_on_img
-{
-	height: 24px;
-	width: 24px;
-}
-.col #opt_on_img:hover
-{
-	background-color: #FFFAF0;
-}
-.col #opt_on_img:active
-{
-	background-color: #FFFAF0;
-}
-.col #opt_on:checked + #opt_on_img
-{
-	background-color: #FFFAF0;
-}
+	.col #opt_on_img
+	{
+		height: 18px;
+		width: 18px;
+	}
+	.col #opt_on_img:hover
+	{
+		background-color: #FFFAF0;
+	}
+	.col #opt_on_img:active
+	{
+		background-color: #FFFAF0;
+	}
+	.col #opt_on:checked + #opt_on_img
+	{
+		background-color: #FFFAF0;
+	}
 
-.col #opt_on
-{
-	position: absolute;
-	top: -1000px;
-}
+	.col #opt_on
+	{
+		position: absolute;
+		top: -1000px;
+	}
 
 .about
 {
-	position: relative;
-	top: calc(100% - 544px);
-	height: 50px;
-	width: 162px;
+	position: absolute;
+	height: 32px;
+	width: 252px;
+	top: calc(100% - 32px);
 	background-color: none;
-	padding-top: 16px;
-	padding-left: 16px;
 }
-/*This is for buttons*/
-	.metric label
+	.about .title
 	{
 		float: left;
-		margin-left: -16px;
-		margin-bottom: 4px;
-		margin-top: 4px;
-		background-color: none;
-		width: 134px;
-		height: 30px;
+		margin-left: 8px;
 	}
-	.metric label span
+	.about .divider
 	{
-		text-align: left;
-		color: #AD986D;
-		padding-left:3px;
-		padding-top: 8px;
-		height: 30px;
-		display: block;
-		border-style: solid;
-		border-color: grey;
+		float: left;
+		width: 204px;
+		margin-top: 1px;
+		margin-left: 0px;
+		margin-bottom: 1px;
+		border-top-style: solid;
+		border-color: #BEBCA9;
 		border-width: 1px;
-	}
-	.metric label input
-	{
-		position:absolute;
-		top:-20px;
-	}
-	.metric label input:checked + span
-	{
-		background-color: #AD986D;
-		border-color: #AD986D;
-		color: #FFFFFF;
-	}
-	.metric label input:hover + span
-	{
-		background-color: #CDB68A;
-		border-color: #CDB68A;
-		color: #FFFFFF;
-	}
-
-	.metric label #scheck0+span
-	{
-		color: #e74c3c;
-	}
-	.metric label #scheck0:checked + span
-	{
-		background-color: #e74c3c;
-		border-color: #e74c3c;
-		color: #ffffff;
-	}
-	.metric label #scheck0:hover + span
-	{
-		background-color: #e74c3c;
-		border-color: #e74c3c;
-		color: #ffffff;
-	}
-	.metric label #scheck1+span
-	{
-		color: #e67e22;
-	}
-	.metric label #scheck1:checked + span
-	{
-		background-color: #e67e22;
-		border-color: #e67e22;
-		color: #ffffff;
-	}
-	.metric label #scheck1:hover + span
-	{
-		background-color: #e67e22;
-		border-color: #e67e22;
-		color: #ffffff;
-	}
-	.metric label #scheck2+span
-	{
-		color: #f1c40f;
-	}
-	.metric label #scheck2:checked + span
-	{
-		background-color: #f1c40f;
-		border-color: #f1c40f;
-		color: #ffffff;
-	}
-	.metric label #scheck2:hover + span
-	{
-		background-color: #f1c40f;
-		border-color: #f1c40f;
-		color: #ffffff;
-	}
-	.metric label #scheck3+span
-	{
-		color: #1abc9c;
-	}
-	.metric label #scheck3:checked + span
-	{
-		background-color: #1abc9c;
-		border-color: #1abc9c;
-		color: #ffffff;
-	}
-	.metric label #scheck3:hover + span
-	{
-		background-color: #1abc9c;
-		border-color: #1abc9c;
-		color: #ffffff;
-	}
-	.metric label #scheck4+span
-	{
-		color: #2ecc71;
-	}
-	.metric label #scheck4:checked + span
-	{
-		background-color: #2ecc71;
-		border-color: #2ecc71;
-		color: #ffffff;
-	}
-	.metric label #scheck4:hover + span
-	{
-		background-color: #2ecc71;
-		border-color: #2ecc71;
-		color: #ffffff;
-	}
-	.metric label #scheck5+span
-	{
-		color: #3498db;
-	}
-	.metric label #scheck5:checked + span
-	{
-		background-color: #3498db;
-		border-color: #3498db;
-		color: #ffffff;
-	}
-	.metric label #scheck5:hover + span
-	{
-		background-color: #3498db;
-		border-color: #3498db;
-		color: #ffffff;
-	}
-	.metric label #scheck6+span
-	{
-		color: #9b59b6;
-	}
-	.metric label #scheck6:checked + span
-	{
-		background-color: #9b59b6;
-		border-color: #9b59b6;
-		color: #ffffff;
-	}
-	.metric label #scheck6:hover + span
-	{
-		background-color: #9b59b6;
-		border-color: #9b59b6;
-		color: #ffffff;
-	}
-	.metric label #scheck7+span
-	{
-		color: #34495e;
-	}
-	.metric label #scheck7:checked + span
-	{
-		background-color: #34495e;
-		border-color: #34495e;
-		color: #ffffff;
-	}
-	.metric label #scheck7:hover + span
-	{
-		background-color: #34495e;
-		border-color: #34495e;
-		color: #ffffff;
+		text-align: center;
 	}
 
 .map
 {
 	float: left;
-	height: calc(100% - 48px);
-	width: calc(100% - 172px);
+	height: 100%;
+	width: calc(100% - 252px);
 	background-color: #F2E9D8;
 	padding: 0;
 	text-align: left;
@@ -456,67 +594,23 @@ body
 	/*height: 28px;*/
 	padding: 4px;
 	font-family: Georgia, serif;
-	font-size: 11px;
-	background: white;
+	font-size: 13px;
+	background: #F6F0E6;
 	border-style: solid;
 	border-width: 1px;
-	border-color: black;
-	/*border-radius: 8px;*/
+	border-color: grey;
+	border-radius: 4px;
 	text-align: left;
 }
+	.tooltip p
+	{
+		margin-top: 2px;
+		margin-bottom: 2px;
+	}
 .title
 {
 	font-size: 18px;
-	margin-bottom: 0px;
 }
-.divider
-{
-	border-color: grey;
-	border-top-style: solid;
-	border-width: 1px;
-	margin-top: 2px;
-	margin-left: -4px;
-}
-/*
-.c3
-{
-	float: left;
-	height: 80%;
-	width: 20%;
-	background-color: #FFFAF0;
-	padding: 1%;
-}
-.c3 label
-{
-	margin: 4px;
-	background-color: #EFEFEF;
-	border-radius: 4px;
-	border: 1px solid #000000;
-	float: left;
-	width: 80%;
-}
-.c3 label span
-{
-	text-align:center;
-	padding:3px 0px;
-	display:block;
-}
-.c3 label input
-{
-	position:absolute;
-	top:-20px;
-}
-.c3 label input:checked + span
-{
-	background-color: #AD986D;
-	color: #FFFFFF;
-}
-.c3 label input:hover + span
-{
-	background-color: #CDB68A;
-	color: #FFFFFF;
-}
-*/
 
 .feature
 {
