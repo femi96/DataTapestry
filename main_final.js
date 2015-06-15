@@ -75,7 +75,7 @@ var svg = d3.select(divwa)
 var g = svg.append("g");
 
 //For resize delay
-var delay = (function()
+var delayre = (function()
 {
 	var timer = 0;
 	return function(callback, ms)
@@ -98,7 +98,7 @@ window.onload = function()
 }
 $(window).resize(function()
 {
-	delay(function()
+	delayre(function()
 	{
 		updatewindow();
 	}, 125);
@@ -108,6 +108,7 @@ function resetcircle() //Resets the circles
 {
 	svg.selectAll("circle").remove();
 }
+
 
 function updatewindow()
 {
@@ -163,6 +164,7 @@ function update() //Calls all update functions
 	{
 		updateopts();
 		changelist();
+		updatetdatlist();
 	}
 }
 
@@ -197,7 +199,7 @@ function updateopt()
 	if(optmenu)
 	{
 		options.style.left = '203px';
-		options.style.top = '55px';
+		options.style.top = '84px';
 	}
 	else
 	{
@@ -260,16 +262,10 @@ function updatelist() //Update list html
 	}
 	var len = tdat.length;
 	tlist.innerHTML = '<br>';
-	tlist.innerHTML += '<div class="item"><div class="name">1.&nbsp&nbsp'+tdat[0].loc_name+'</div><img src="content/'+tdat[0].image+'" alt="'+tdat[0].loc_name+'"align="right"></div>';
-	tlist.innerHTML += '<div class="item"><div class="name">2.&nbsp&nbsp'+tdat[1].loc_name+'</div><img src="content/'+tdat[1].image+'" alt="'+tdat[1].loc_name+'"align="right"></div>';
-	tlist.innerHTML += '<div class="item"><div class="name">3.&nbsp&nbsp'+tdat[2].loc_name+'</div><img src="content/'+tdat[2].image+'" alt="'+tdat[2].loc_name+'"align="right"></div>';
-	tlist.innerHTML += '<div class="item"><div class="name">4.&nbsp&nbsp'+tdat[3].loc_name+'</div><img src="content/'+tdat[3].image+'" alt="'+tdat[3].loc_name+'"align="right"></div>';
-	tlist.innerHTML += '<div class="item"><div class="name">5.&nbsp&nbsp'+tdat[4].loc_name+'</div><img src="content/'+tdat[4].image+'" alt="'+tdat[4].loc_name+'"align="right"></div>';
-	tlist.innerHTML += '<div class="item"><div class="name">6.&nbsp&nbsp'+tdat[5].loc_name+'</div><img src="content/'+tdat[5].image+'" alt="'+tdat[5].loc_name+'"align="right"></div>';
-	tlist.innerHTML += '<div class="item"><div class="name">7.&nbsp&nbsp'+tdat[6].loc_name+'</div><img src="content/'+tdat[6].image+'" alt="'+tdat[6].loc_name+'"align="right"></div>';
-	tlist.innerHTML += '<div class="item"><div class="name">8.&nbsp&nbsp'+tdat[7].loc_name+'</div><img src="content/'+tdat[7].image+'" alt="'+tdat[7].loc_name+'"align="right"></div>';
-	tlist.innerHTML += '<div class="item"><div class="name">9.&nbsp&nbsp'+tdat[8].loc_name+'</div><img src="content/'+tdat[8].image+'" alt="'+tdat[8].loc_name+'"align="right"></div>';
-	tlist.innerHTML += '<div class="item"><div class="name">10.&nbsp'+tdat[9].loc_name+'</div><img src="content/'+tdat[9].image+'" alt="'+tdat[9].loc_name+'"align="right"></div>';
+	for (var c = 0; c < 10; c++)
+	{
+		tlist.innerHTML += '<div class="item" onmouseover=moveitem(this,'+tdat[c].nll+','+c+','+i+',"'+tdat[c].cID+'")><div class="name">'+(c+1)+'.&nbsp'+tdat[c].loc_name+'</div><img src="content/'+tdat[c].image+'" alt="'+tdat[c].loc_name+'"align="right"></div>';
+	}
 }
 
 function updatetdatlist() //Update tdat for list
@@ -305,7 +301,7 @@ function updatetdatlist() //Update tdat for list
 		tdatlist.push(ndat);
 	}
 	//TFX Slow?
-	weighted = document.getElementById('opt_weighted').checked;
+	//weighted = document.getElementById('opt_weighted').checked;
 	for (var f in fdat)
 	{
 		if(daten[f])//If the fdat should be displayed
@@ -394,6 +390,7 @@ function changelist() //Update list based on map checkboxes
 	updatelist();
 }
 
+
 function getmID() //Get mIDs and generate options
 {
 	console.log('Getting mIDs');
@@ -438,25 +435,25 @@ function getmID() //Get mIDs and generate options
 		box.id = 'opt_topchange';
 		pack.innerHTML += box.outerHTML+'<span>Automatic List Update</span>';
 
-		var pack = $(document.getElementsByClassName('option')[0]).children('label')[1];
+		/*var pack = $(document.getElementsByClassName('option')[0]).children('label')[1];
 		var box = document.createElement('input');
 		box.type = 'checkbox';
 		box.id = 'opt_weighted';
-		pack.innerHTML += box.outerHTML+'<span>Weighted Vote Total</span>';
+		pack.innerHTML += box.outerHTML+'<span>Weighted Vote Total</span>';*/
 		
-		var pack = $(document.getElementsByClassName('option')[0]).children('label')[2];
+		var pack = $(document.getElementsByClassName('option')[0]).children('label')[1];
 		var box = document.createElement('input');
 		box.type = 'checkbox';
 		box.id = 'opt_circave';
 		pack.innerHTML += box.outerHTML+'<span>Average Circle Colors</span>';
 		
-		var pack = $(document.getElementsByClassName('option')[0]).children('label')[3];
+		var pack = $(document.getElementsByClassName('option')[0]).children('label')[2];
 		var box = document.createElement('input');
 		box.type = 'checkbox';
 		box.id = 'opt_rorder';
 		pack.innerHTML += box.outerHTML+'<span>Reverse Metric Order</span>';
 
-		var pack = $(document.getElementsByClassName('option')[0]).children('label')[4];
+		var pack = $(document.getElementsByClassName('option')[0]).children('label')[3];
 		var box = document.createElement('input');
 		box.type = 'checkbox';
 		box.id = 'opt_lowmap';
@@ -482,11 +479,11 @@ function getmID() //Get mIDs and generate options
 			document.getElementById("opt_color"+ind.toString()).onchange = update;
 		}
 		$($(document.getElementsByClassName('option')[0]).children('label')[0]).children('input')[0].checked = autochange;
-		$($(document.getElementsByClassName('option')[0]).children('label')[1]).children('input')[0].checked = weighted;
-		$($(document.getElementsByClassName('option')[0]).children('label')[1]).children('input')[0].onclick = updatelist;
+		/*$($(document.getElementsByClassName('option')[0]).children('label')[1]).children('input')[0].checked = weighted;
+		$($(document.getElementsByClassName('option')[0]).children('label')[1]).children('input')[0].onclick = updatelist;*/
+		$($(document.getElementsByClassName('option')[0]).children('label')[1]).children('input')[0].onclick = mapit;
 		$($(document.getElementsByClassName('option')[0]).children('label')[2]).children('input')[0].onclick = mapit;
-		$($(document.getElementsByClassName('option')[0]).children('label')[3]).children('input')[0].onclick = mapit;
-		$($(document.getElementsByClassName('option')[0]).children('label')[4]).children('input')[0].onclick = mapworld;
+		$($(document.getElementsByClassName('option')[0]).children('label')[3]).children('input')[0].onclick = mapworld;
 	})
 }
 
@@ -573,6 +570,7 @@ function lltoval(ll) //Convert input latlon string to numerical latlon coords
 	return [lon,lat];
 }
 
+
 function colorave(cset)
 {
 	//colorset = [colors, mu]
@@ -614,6 +612,7 @@ function colorrgbtohex(r, g, b)
 	return "#"+((1 << 24)+(parseInt(r) << 16)+(parseInt(g) << 8)+parseInt(b)).toString(16).slice(1);
 }
 
+
 function move() //Move function for zoom
 {
 	var t = d3.event.translate,
@@ -625,6 +624,129 @@ function move() //Move function for zoom
 	updaterad();
 	lastscale = zoom.scale();
 	lasttrans = zoom.translate();
+}
+
+function moveitem(t,inpx,inpy,c,i,cID)
+{
+	var timeout = null;
+	t.onmouseover = function()
+	{
+		console.log('mouse');
+		var tdat = {};
+		if(i == -1)
+		{
+			tdat = tdatlist;
+		}
+		else
+		{
+			tdat = fdat[i];
+		}
+		d3.select(t).transition().duration(1000).style("background-color", '#9B9382').transition().duration(50).style("background-color", '#F6F0E6').transition().duration(50).style("background-color", '#9B9382')
+		timeout = setTimeout(function()
+			{
+				ttdiv.transition().duration(0).style("opacity", 0)
+				ttdiv.transition().duration(0).style("left", '-1000px').style("top", '-1000px')
+				movetoloc(inpx,inpy)
+				var tt = setTimeout(function()
+					{
+						disptt(cID)
+					}, 2000);
+			}, 1000);
+	};
+
+	t.onmouseout = function()
+	{
+		ttdiv.transition().duration(600).style("opacity", 0)
+		ttdiv.transition().delay(600).duration(0).style("left", '-1000px').style("top", '-1000px')
+		d3.select(t).transition().duration(100).style("background-color", '#F6F0E6')
+		clearTimeout(timeout);
+	};
+}
+
+function movetoloc(inpx,inpy)
+{
+	/*console.log(inp);
+	debugger;*/
+	zoom.event(svg);
+	svg.transition()
+	.duration(2000)
+	.call(zoom.translate([projection([-inpx,inpy])[0]*(10),projection([-inpx,inpy])[1]*(-10)]).scale(10).event);
+}
+
+function disptt(cID)
+{
+	var d = tdatlist.filter(function(obj)
+	{
+		return obj.cID == cID;
+	})[0]
+	var circ = $(document.getElementById(cID)).offset();
+	console.log(circ);
+	var r = document.getElementById(cID).r.baseVal.value*zoom.scale()
+	console.log(r);
+	ttdiv.transition().duration(200).style("opacity", 0.9)
+	ttdiv.html('<a href="'+d.wiki_url+'" target="_blank">'+d.loc_name+'</a><img src="content/'+d.image+'" alt="'+d.loc_name+'" style="width:100px;height:100px;" align="right"><p>'+d.desc.substring(0,200)+'...</p>')
+		.style("left", function(d)
+		{
+			if(circ.left+r+316 < width+252)
+			{
+				return (circ.left+r+12)+'px'
+			}
+			else
+			{
+				return (circ.left+r-312)+'px'
+			}
+		})
+		.style("top", function(d)
+		{
+			if(circ.top+r < height/2)
+			{
+				return (circ.top+r-28)+'px'
+			}
+			else
+			{
+				if(circ.top+r+32 > height+48)
+				{
+					return (circ.top+r-144)+'px'
+				}
+				return (circ.top+r-128)+'px'
+			}
+		})
+		.on("mouseover", function(d)
+		{
+			if(this.style.opacity != 0)
+			{
+				ttdiv.transition().duration(200).style("opacity", 0.9)
+			}
+		})
+		.on("mouseout", function(d)
+		{
+			ttdiv.transition().duration(600).style("opacity", 0)
+			ttdiv.transition().delay(600).duration(0).style("left", '-1000px').style("top", '-1000px')
+		})
+}
+
+function openmode(url)
+{
+	var grey = document.getElementsByClassName('mode_grey')[0];
+	var con = document.getElementsByClassName('mode_con')[0];
+	var mode = document.getElementsByClassName('mode_main')[0];
+	grey.style.left = "0";
+	grey.style.top = "0";
+	con.style.left = "302px";
+	con.style.top = "50px";
+	$(mode).attr('data', url);
+}
+
+function closemode()
+{
+	var grey = document.getElementsByClassName('mode_grey')[0];
+	var con = document.getElementsByClassName('mode_con')[0];
+	var mode = document.getElementsByClassName('mode_main')[0];
+	grey.style.left = "-100%";
+	grey.style.top = "-100%";
+	con.style.left = "-100%";
+	con.style.top = "-100%";
+	$(mode).attr('data', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
 }
 
 function mapworld() //Map land and countries
@@ -703,48 +825,13 @@ function mapit() //Update circles on map
 			})
 			.attr("stroke", "black")
 			.attr("opacity", 0.85)
+			.attr("id", function(d)
+			{
+				return d.cID
+			})
 			.on("mouseover", function(d)
 			{
-				ttdiv.transition().duration(200).style("opacity", 0.9)
-				ttdiv.html('<a href="'+d.wiki_url+'" target="_blank">'+d.loc_name+'</a><img src="content/'+d.image+'" alt="'+d.loc_name+'" style="width:100px;height:100px;" align="right"><p>'+d.desc.substring(0,200)+'...</p>')
-					.style("left", function(d)
-					{
-						if(d3.event.pageX+316 < width+252)
-						{
-							return (d3.event.pageX+12)+'px'
-						}
-						else
-						{
-							return (d3.event.pageX-312)+'px'
-						}
-					})
-					.style("top", function(d)
-					{
-						if(d3.event.pageY < height/2)
-						{
-							return (d3.event.pageY-28)+'px'
-						}
-						else
-						{
-							if(d3.event.pageY+32 > height+48)
-							{
-								return (d3.event.pageY-144)+'px'
-							}
-							return (d3.event.pageY-128)+'px'
-						}
-					})
-					.on("mouseover", function(d)
-					{
-						if(this.style.opacity != 0)
-						{
-							ttdiv.transition().duration(200).style("opacity", 0.9)
-						}
-					})
-					.on("mouseout", function(d)
-					{
-						ttdiv.transition().duration(600).style("opacity", 0)
-						ttdiv.transition().delay(600).duration(0).style("left", '-1000px').style("top", '-1000px')
-					})
+				disptt(d.cID)
 			})
 			.on("mouseout", function(d)
 			{
@@ -778,49 +865,13 @@ function mapit() //Update circles on map
 					.attr("fill", datcolors[f])
 					.attr("stroke", "black")
 					.attr("opacity", 0.7)
+					.attr("id", function(d)
+					{
+						return d.cID
+					})
 					.on("mouseover", function(d)
 					{
-						ttdiv.transition().duration(200).style("opacity", 0.9)
-						ttdiv.html('<img src="content/'+d.image+'" alt="'+d.loc_name+'" style="width:100px;height:100px;" align="right"><a href="'+d.wiki_url+'" target="_blank">'+d.loc_name+'</a><p>'+d.desc.substring(0,320)+'...</p>')
-							.style("left", function(d)
-							{
-								console.log(d3.event.pageX);
-								if(d3.event.pageX+316 < width+252)
-								{
-									return (d3.event.pageX+12)+'px'
-								}
-								else
-								{
-									return (d3.event.pageX-312)+'px'
-								}
-							})
-							.style("top", function(d)
-							{
-								if(d3.event.pageY < height/2)
-								{
-									return (d3.event.pageY-28)+'px'
-								}
-								else
-								{
-									if(d3.event.pageY+32 > height+48)
-									{
-										return (d3.event.pageY-144)+'px'
-									}
-									return (d3.event.pageY-128)+'px'
-								}
-							})
-							.on("mouseover", function(d)
-							{
-								if(this.style.opacity != 0)
-								{
-									ttdiv.transition().duration(200).style("opacity", 0.9)
-								}
-							})
-							.on("mouseout", function(d)
-							{
-								ttdiv.transition().duration(600).style("opacity", 0)
-								ttdiv.transition().delay(600).duration(0).style("left", '-1000px').style("top", '-1000px')
-							})
+						disptt(d.cID)
 					})
 					.on("mouseout", function(d)
 					{

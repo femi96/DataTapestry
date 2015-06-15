@@ -40,12 +40,11 @@
 			</div>
 			<label id = "opt_on_lab">
 				<input id = "opt_on" type = "checkbox" onchange = "updateopt()">
-				<img src = "ic_settings.png" alt = "Settings" id = "opt_on_img">
+				<span id = "opt_on_img"></span>
 			</label>
 			<div class = "option">
 				<label></label>
 				List: <select id = "opt_topsel" onchange="updatelist()"></select>
-				<label></label>
 				<label></label>
 				<label></label>
 				<label></label>
@@ -55,6 +54,9 @@
 		</div>
 		<div class = "map">
 		</div>
+		<div class = "mode_grey" onclick = "closemode()"></div>
+		<div class = "mode_con">
+		<object class = "mode_main" type = "text/html" data = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"></object></div>
 	</body>
 	<footer></footer>
 	<script src = "main_final.js"></script>
