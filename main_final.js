@@ -578,6 +578,11 @@ function lltoval(ll) //Convert input latlon string to numerical latlon coords
 }
 
 
+function about()
+{
+	openmode(window.location.href+'/about')
+}
+
 function colorave(cset)
 {
 	//colorset = [colors, mu]
