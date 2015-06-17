@@ -361,11 +361,7 @@ body
 		margin-bottom: 1px;
 		background-color: #F6F0E6;
 		cursor: pointer;
-	}/*
-	.rank .item:hover
-	{
-		background-color: #F2E9D8;
-	}*/
+	}
 	.rank .name
 	{
 		float: left;
@@ -393,17 +389,21 @@ body
 	position: absolute;
 	top: -1400px;
 	left: 200px;
-	width: 200px;
-	height: 363px;
+	width: 202px;
+	height: 365px;
 	background-color: #FFFAF0;
 	padding-left: 4px;
 	padding-top: 4px;
+	border: 1px solid grey;
+	border-radius: 4px;
+	opacity: 0.97;
 }
 	.option label
 	{
 		margin-bottom: 2px;
 		background-color: #FFFAF0;
 		border: 1px solid grey;
+		border-radius: 2px;
 		float: left;
 		width: 192px;
 	}
@@ -420,12 +420,14 @@ body
 	}
 	.option label input:checked + span
 	{
-		background-color: grey;
+		background-color: #70944D;
+		border-color: #70944D;
 		color: #FFFFFF;
 	}
 	.option label input:hover + span
 	{
-		background-color: grey;
+		background-color: #70944D;
+		border-color: #70944D;
 		color: #FFFFFF;
 	}
 	.option select
@@ -435,6 +437,7 @@ body
 		border-color: grey;
 		margin-bottom: 4px;
 		width: 160px;
+		border-radius: 2px;
 	}
 	.option #opt_scale
 	{
@@ -444,6 +447,7 @@ body
 		margin-bottom: 2px;
 		width: 148px;
 		padding-left: 2px;
+		border-radius: 2px;
 	}
 	.option #opt_exp
 	{
@@ -453,84 +457,47 @@ body
 		margin-bottom: 2px;
 		width: 159px;
 		padding-left: 2px;
+		border-radius: 2px;
+	}
+	.option .opt_color
+	{
+		border-width: 1px;
+		border-style: solid;
+		border-color: grey;
+		margin-bottom: 2px;
+		width: 139px;
+		padding-left: 2px;
+		border-radius: 2px;
 	}
 	.option #opt_color0
 	{
-		border-width: 1px;
-		border-style: solid;
-		border-color: grey;
-		margin-bottom: 2px;
-		width: 139px;
-		padding-left: 2px;
 	}
 	.option #opt_color1
 	{
-		border-width: 1px;
-		border-style: solid;
-		border-color: grey;
-		margin-bottom: 2px;
-		width: 139px;
-		padding-left: 2px;
 		margin-left: 53px;
 	}
 	.option #opt_color2
 	{
-		border-width: 1px;
-		border-style: solid;
-		border-color: grey;
-		margin-bottom: 2px;
-		width: 139px;
-		padding-left: 2px;
 		margin-left: 53px;
 	}
 	.option #opt_color3
 	{
-		border-width: 1px;
-		border-style: solid;
-		border-color: grey;
-		margin-bottom: 2px;
-		width: 139px;
-		padding-left: 2px;
 		margin-left: 53px;
 	}
 	.option #opt_color4
 	{
-		border-width: 1px;
-		border-style: solid;
-		border-color: grey;
-		margin-bottom: 2px;
-		width: 139px;
-		padding-left: 2px;
 		margin-left: 53px;
 	}
 	.option #opt_color5
 	{
-		border-width: 1px;
-		border-style: solid;
-		border-color: grey;
-		margin-bottom: 2px;
-		width: 139px;
-		padding-left: 2px;
 		margin-left: 53px;
 	}
 	.option #opt_color6
 	{
-		border-width: 1px;
-		border-style: solid;
-		border-color: grey;
-		margin-bottom: 2px;
-		width: 139px;
-		padding-left: 2px;
 		margin-left: 53px;
 	}
 	.option #opt_color7
 	{
-		border-width: 1px;
-		border-style: solid;
-		border-color: grey;
-		margin-bottom: 2px;
-		width: 139px;
-		padding-left: 2px;
 		margin-left: 53px;
 	}
 .col #opt_on_lab
@@ -567,30 +534,34 @@ body
 		top: -1000px;
 	}
 
-.about
+.bottom
 {
 	position: absolute;
 	height: 32px;
 	width: 252px;
 	top: calc(100% - 32px);
-	background-color: none;
 }
-	.about .title
+	.bottom #about
 	{
-		float: left;
-		margin-left: 8px;
-	}
-	.about .divider
-	{
-		float: left;
-		width: 204px;
-		margin-top: 1px;
-		margin-left: 0px;
-		margin-bottom: 1px;
-		border-top-style: solid;
-		border-color: #BEBCA9;
+		width: 74px;
+		height: 28px;
+		border-style: solid;
+		border-color: grey;
 		border-width: 1px;
+		background-color: #F6F0E6;
+		border-radius: 2px;
+		float: left;
+		color: #444444;
+		margin-left: 4px;
+		margin-right: 4px;
+		font-size: 20px;
 		text-align: center;
+	}
+	.bottom #about:hover
+	{
+		background-color: #70944D;
+		border-color: #70944D;
+		color: #ffffff;
 	}
 
 .map
@@ -605,22 +576,112 @@ body
 .tooltip
 {
 	position: absolute;
-	width: 300px;
+	width: 512px;
 	/*height: 28px;*/
 	padding: 4px;
-	font-family: Georgia, serif;
-	font-size: 13px;
 	background: white; /*was #F6F0E6*/
 	border-style: solid;
 	border-width: 1px;
-	border-color: grey;
+	border-color: #212c17;
 	border-radius: 4px;
 	text-align: left;
 }
-	.tooltip p
+	.tooltip img
 	{
-		margin-top: 2px;
+		float: right;
+		border-style: solid;
+		border-width: 1px;
+		border-color: #444444;
+		border-radius: 4px;
+		margin-bottom: 8px;
+		margin-top: 38px;
+		width: 175px;
+		height: 175px;
+		cursor: pointer;
+	}
+	.tooltip #title
+	{
+		cursor: pointer;
+		float: left;
+		width: 502px;
+		/*font-family: Georgia, serif;*/
+		font-size: 20px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		color: #444444;
+	}
+		.tooltip #title:hover
+		{
+			color: #70944D;
+		}
+	.tooltip #sub
+	{
+		float: left;
+		width: 311px;
+		font-size: 14px;
+		margin-left: 16px;
+		margin-top: 0px;
+		margin-bottom: 0px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		/*color: #444444;*/
+	}
+	.tooltip #datawrap
+	{
+		float: left;
+		width: 327;
+		margin-bottom: 4px;
+	}
+	.tooltip .h1
+	{
+		float: left;
+		width: 127;
+		margin-top: 0px;
+		font-size: 14px;
 		margin-bottom: 2px;
+		border-width: 1px;
+		border-bottom-style: solid;
+		text-align: center;
+		border-color: #444444;
+	}
+	.tooltip .h2
+	{
+		float: left;
+		width: 49;
+		margin-top: 0px;
+		font-size: 14px;
+		margin-bottom: 2px;
+		border-width: 1px;
+		border-bottom-style: solid;
+		border-left-style: solid;
+		text-align: center;
+		border-color: #444444;
+	}
+	.tooltip .c1
+	{
+		float: left;
+		width: 127;
+		margin-top: 0px;
+		font-size: 13px;
+		margin-bottom: 2px;
+	}
+	.tooltip .c2
+	{
+		float: left;
+		width: 50;
+		margin-top: 0px;
+		font-size: 13px;
+		text-align: center;
+		overflow: hidden;
+		margin-bottom: 2px;
+	}
+	.tooltip #desc
+	{
+		margin-top: 0px;
+		font-family: Georgia, serif;
+		font-size: 12px;
 	}
 .mode_grey
 {
@@ -630,24 +691,29 @@ body
 	left: -100%;
 	top: -100%;
 	background: grey;
-	opacity: 0.5;
+	opacity: 0.25;
 }
 .mode_con
 {
 	position: absolute;
-	width: calc(100% - 352px);
+	width: calc(100% - 100px);
 	height: calc(100% - 100px);
 	padding: 4px;
 	left: -100%;
 	top: -100%;
-	background: black;
+	background: #212c17;
 }
 .mode_main
 {
 	float: left;
-	width: calc(100%);
-	height: calc(100%);
+	width: 100%;
+	height: 100%;
 	background: white;
+}
+
+.circle
+{
+	cursor: pointer;
 }
 
 .title

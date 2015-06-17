@@ -10,6 +10,7 @@ var mIDurl = "https://www.qnt.io/api/displaymetrics?pID=earth_tapestry&mode=all&
 
 //For getting data.
 var datmIDs = []; //Stores all data mIDs. mID Str
+var datmet = []; //Stores all data metrics. metric Str
 var daten = []; //Whether or not a set is to be showed. Bool
 var datcolors = []; //Colors. Str
 var datlim = '500'; //How many entries it can take. Int
@@ -84,6 +85,8 @@ var delayre = (function()
 		timer = setTimeout(callback, ms);
 	};
 })();
+
+var timeout = [null,null,null,null,null,null,null,null,null,null]
 
 window.onload = function()
 {
@@ -199,7 +202,7 @@ function updateopt()
 	if(optmenu)
 	{
 		options.style.left = '203px';
-		options.style.top = '84px';
+		options.style.top = '82px';
 	}
 	else
 	{
@@ -264,15 +267,15 @@ function updatelist() //Update list html
 	tlist.innerHTML = '<br>';
 	for (var c = 0; c < 10; c++)
 	{
-		tlist.innerHTML += '<div class="item" onmouseover=moveitem(this,'+tdat[c].nll+','+c+','+i+',"'+tdat[c].cID+'")><div class="name">'+(c+1)+'.&nbsp'+tdat[c].loc_name+'</div><img src="content/'+tdat[c].image+'" alt="'+tdat[c].loc_name+'"align="right"></div>';
+		tlist.innerHTML += '<div class="item" onclick=clickitem(this,'+tdat[c].nll+','+c+','+i+',"'+tdat[c].cID+'","'+tdat[c].wiki_url+'") onmouseout=stopitem(this,'+c+') onmouseover=moveitem(this,'+tdat[c].nll+','+c+','+i+',"'+tdat[c].cID+'")><div class="name">'+(c+1)+'.&nbsp'+tdat[c].loc_name+'</div><img src="content/'+tdat[c].image+'" alt="'+tdat[c].loc_name+'"align="right"></div>';
 	}
 }
 
 function updatetdatlist() //Update tdat for list
 {
 	//fdat[x][i] = idat
-	//idat = {cID, ll, nll, vote, voteavg, loc_name, wiki_url, desc, image}
-	//ndat = {cID, ll, nll, vote, tvoteavg, loc_name, wiki_url, desc, image, votesum, colorset}
+	//idat = {cID, ll, nll, vote, voteavg, loc_name, wiki_url, desc, image, geo}
+	//ndat = {cID, ll, nll, vote, tvoteavg, loc_name, wiki_url, desc, image, geo, votesum, colorset}
 	//colorset = [colors, mu]
 	tdatlist = [];
 	var tindlist = [];
@@ -296,6 +299,7 @@ function updatetdatlist() //Update tdat for list
 		ndat.wiki_url = idat.wiki_url;
 		ndat.desc = idat.desc;
 		ndat.image = idat.image;
+		ndat.geo = idat.geo;
 		ndat.votesum = 0;
 		ndat.colorset = [];
 		tdatlist.push(ndat);
@@ -410,6 +414,7 @@ function getmID() //Get mIDs and generate options
 			//Checkboxes for map TFX this will throw error if more categories
 			var color = initcolors[ind];
 			datmIDs.push(mIDs[ind].mID);
+			datmet.push(mIDs[ind].metric);
 			daten.push(false);
 			datcolors.push(color);
 
@@ -420,6 +425,7 @@ function getmID() //Get mIDs and generate options
 			var col = document.createElement('input');
 			col.type = 'text';
 			col.id = "opt_color"+ind.toString();
+			col.className = "opt_color";
 			
 			pack.innerHTML += '<label>'+box.outerHTML+'<span>'+mIDs[ind].metric.charAt(0).toUpperCase()+mIDs[ind].metric.substring(1)+'</span></label><br>';
 			options.innerHTML += col.outerHTML;
@@ -528,6 +534,7 @@ function getidat(i) //Recursive function for getting data
 			flist.wiki_url = data.results[ind].content_data.wikipedia_url;
 			flist.desc = data.results[ind].content_data.description;
 			flist.image = data.results[ind].content_data.image_name;
+			flist.geo = data.results[ind].content_data.geopolitical_location;
 			idat.push(flist);
 		}
 		fdat.push(idat);
@@ -626,103 +633,146 @@ function move() //Move function for zoom
 	lasttrans = zoom.translate();
 }
 
+function clickitem(t,inpx,inpy,c,i,cID,url)
+{
+	stopitem(t,c);
+	var tt = null;
+	zoom.event(svg);
+	var newtran = [projection([-inpx,inpy])[0]*(10),projection([-inpx,inpy])[1]*(-10)];
+	if(zoom.translate()[0].toFixed(0) == newtran[0].toFixed(0) && zoom.translate()[1].toFixed(0) == newtran[1].toFixed(0))
+	{
+		openmode(url);
+	}
+	else
+	{
+		d3.select(t).transition().duration(50).style("background-color", '#70944D').transition().duration(2500).style("background-color", '#A9BE94')
+		ttdiv.transition().duration(0).style("opacity", 0)
+		ttdiv.transition().duration(0).style("left", '-1000px').style("top", '-1000px')
+		movetoloc(inpx,inpy,cID);
+	}
+}
 function moveitem(t,inpx,inpy,c,i,cID)
 {
-	var timeout = null;
-	t.onmouseover = function()
+	var tdat = {};
+	if(i == -1)
 	{
-		console.log('mouse');
-		var tdat = {};
-		if(i == -1)
-		{
-			tdat = tdatlist;
-		}
-		else
-		{
-			tdat = fdat[i];
-		}
-		d3.select(t).transition().duration(1000).style("background-color", '#9B9382').transition().duration(50).style("background-color", '#F6F0E6').transition().duration(50).style("background-color", '#9B9382')
-		timeout = setTimeout(function()
-			{
-				ttdiv.transition().duration(0).style("opacity", 0)
-				ttdiv.transition().duration(0).style("left", '-1000px').style("top", '-1000px')
-				movetoloc(inpx,inpy)
-				var tt = setTimeout(function()
-					{
-						disptt(cID)
-					}, 2000);
-			}, 1000);
-	};
-
-	t.onmouseout = function()
+		tdat = tdatlist;
+	}
+	else
 	{
-		ttdiv.transition().duration(600).style("opacity", 0)
-		ttdiv.transition().delay(600).duration(0).style("left", '-1000px').style("top", '-1000px')
-		d3.select(t).transition().duration(100).style("background-color", '#F6F0E6')
-		clearTimeout(timeout);
-	};
+		tdat = fdat[i];
+	}
+	d3.select(t).transition().duration(1000).style("background-color", '#A9BE94').transition().duration(50).style("background-color", '#70944D').transition().duration(2500).style("background-color", '#A9BE94')
+	timeout[c] = setTimeout(function()
+		{
+			ttdiv.transition().duration(0).style("opacity", 0)
+			ttdiv.transition().duration(0).style("left", '-1000px').style("top", '-1000px')
+			movetoloc(inpx,inpy,cID)
+		}, 1000);
+}
+function stopitem(t,c)
+{
+	ttdiv.transition().duration(600).style("opacity", 0)
+	ttdiv.transition().delay(600).duration(0).style("left", '-1000px').style("top", '-1000px')
+	d3.select(t).transition().duration(100).style("background-color", '#F6F0E6')
+	clearTimeout(timeout[c]);
 }
 
-function movetoloc(inpx,inpy)
+function movetoloc(inpx,inpy,cID)
 {
 	/*console.log(inp);
 	debugger;*/
+	var tt = null;
 	zoom.event(svg);
-	svg.transition()
-	.duration(2000)
-	.call(zoom.translate([projection([-inpx,inpy])[0]*(10),projection([-inpx,inpy])[1]*(-10)]).scale(10).event);
+	var newtran = [projection([-inpx,inpy])[0]*(10),projection([-inpx,inpy])[1]*(-10)];
+	if(zoom.translate()[0].toFixed(0) == newtran[0].toFixed(0) && zoom.translate()[1].toFixed(0) == newtran[1].toFixed(0))
+	{
+		tt = disptt(cID);
+	}
+	else
+	{
+		tt = setTimeout(function()
+			{
+				disptt(cID)
+			}, 2000);
+		svg.transition()
+		.duration(2000)
+		.call(zoom.translate([projection([-inpx,inpy])[0]*(10),projection([-inpx,inpy])[1]*(-10)]).scale(10).event);
+	}
 }
 
 function disptt(cID)
 {
+	//ndat = {cID, ll, nll, vote, tvoteavg, loc_name, wiki_url, desc, image, votesum, colorset}
 	var d = tdatlist.filter(function(obj)
 	{
 		return obj.cID == cID;
 	})[0]
 	var circ = $(document.getElementById(cID)).offset();
-	console.log(circ);
 	var r = document.getElementById(cID).r.baseVal.value*zoom.scale()
-	console.log(r);
-	ttdiv.transition().duration(200).style("opacity", 0.9)
-	ttdiv.html('<a href="'+d.wiki_url+'" target="_blank">'+d.loc_name+'</a><img src="content/'+d.image+'" alt="'+d.loc_name+'" style="width:100px;height:100px;" align="right"><p>'+d.desc.substring(0,200)+'...</p>')
-		.style("left", function(d)
+	$.getJSON('https://www.qnt.io/api/scores?pID=earth_tapestry&cID='+cID+'&key=54c67cc51c61be6e9acb1159', function(c)
+	{
+		var ttstring = '<div id="title" onclick=openmode("'+d.wiki_url+'")>'+d.loc_name+'</div><img src="content/'+d.image+'" alt="'+d.loc_name+'" onclick=openmode("'+d.wiki_url+'")><div id="sub">'+d.geo+'</div><div id="sub">'+d.ll+'</div>';
+		ttstring += '<div id="datawrap"><div class="h1">Metric</div>'
+		ttstring += '<div class="h2">Rank</div>'
+		ttstring += '<div class="h2">Score</div>'
+		ttstring += '<div class="h2">Votes</div>'
+		ttstring += '<div class="h2">Ties</div>'
+		for (var ind in datmIDs)
 		{
-			if(circ.left+r+316 < width+252)
+			var mID = datmIDs[ind];
+			var ran = c[0].ranks[mID];
+			if(ran != undefined)
 			{
-				return (circ.left+r+12)+'px'
+				ttstring += '<div class="c1">'+datmet[ind].charAt(0).toUpperCase()+datmet[ind].substring(1)+'</div>'
+				ttstring += '<div class="c2">'+c[0].ranks[mID]+'</div>'
+				ttstring += '<div class="c2">'+(c[0].scoreVector[mID]/50).toFixed(3)+'</div>'
+				ttstring += '<div class="c2">'+c[0].numVotes[mID]+'</div>'
+				ttstring += '<div class="c2">'+c[0].numTies[mID]+'</div>'
 			}
-			else
+		}
+		ttdiv.transition().duration(200).style("opacity", 0.97)
+		ttdiv.html(ttstring+'</div><div id="desc">&nbsp&nbsp&nbsp&nbsp'+d.desc+'</div>')
+			.style("left", function(d)
 			{
-				return (circ.left+r-312)+'px'
-			}
-		})
-		.style("top", function(d)
-		{
-			if(circ.top+r < height/2)
-			{
-				return (circ.top+r-28)+'px'
-			}
-			else
-			{
-				if(circ.top+r+32 > height+48)
+				if(circ.left+r+512+16 < width+252)
 				{
-					return (circ.top+r-144)+'px'
+					return (circ.left+r+12)+'px'
 				}
-				return (circ.top+r-128)+'px'
-			}
-		})
-		.on("mouseover", function(d)
-		{
-			if(this.style.opacity != 0)
+				else
+				{
+					return (circ.left+r-512-12)+'px'
+				}
+			})
+			.style("top", function(d)
 			{
-				ttdiv.transition().duration(200).style("opacity", 0.9)
-			}
-		})
-		.on("mouseout", function(d)
-		{
-			ttdiv.transition().duration(600).style("opacity", 0)
-			ttdiv.transition().delay(600).duration(0).style("left", '-1000px').style("top", '-1000px')
-		})
+				var up = parseInt(ttdiv.style("height"), 10);
+				if(circ.top+r+up-28 < height)
+				{
+					return (circ.top+r-32)+'px'
+				}
+				else
+				{
+					return (height-up-4)+'px'
+				}
+			})
+			.on("click", function(d)
+			{
+				openmode(d.wiki_url)
+			})
+			.on("mouseover", function(d)
+			{
+				if(this.style.opacity != 0)
+				{
+					ttdiv.transition().duration(200).style("opacity", 0.97)
+				}
+			})
+			.on("mouseout", function(d)
+			{
+				ttdiv.transition().duration(600).style("opacity", 0)
+				ttdiv.transition().delay(600).duration(0).style("left", '-1000px').style("top", '-1000px')
+			})
+	})
 }
 
 function openmode(url)
@@ -732,9 +782,12 @@ function openmode(url)
 	var mode = document.getElementsByClassName('mode_main')[0];
 	grey.style.left = "0";
 	grey.style.top = "0";
-	con.style.left = "302px";
+	con.style.left = "50px";
 	con.style.top = "50px";
-	$(mode).attr('data', url);
+	if(url != $(mode).attr('data'))
+	{
+		$(mode).attr('data', url);
+	}
 }
 
 function closemode()
@@ -746,7 +799,6 @@ function closemode()
 	grey.style.top = "-100%";
 	con.style.left = "-100%";
 	con.style.top = "-100%";
-	$(mode).attr('data', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
 }
 
 function mapworld() //Map land and countries
@@ -825,9 +877,14 @@ function mapit() //Update circles on map
 			})
 			.attr("stroke", "black")
 			.attr("opacity", 0.85)
+			.attr("class", "circle")
 			.attr("id", function(d)
 			{
 				return d.cID
+			})
+			.on("click", function(d)
+			{
+				openmode(d.wiki_url)
 			})
 			.on("mouseover", function(d)
 			{
@@ -865,9 +922,14 @@ function mapit() //Update circles on map
 					.attr("fill", datcolors[f])
 					.attr("stroke", "black")
 					.attr("opacity", 0.7)
+					.attr("class", "circle")
 					.attr("id", function(d)
 					{
 						return d.cID
+					})
+					.on("click", function(d)
+					{
+						openmode(d.wiki_url)
 					})
 					.on("mouseover", function(d)
 					{
