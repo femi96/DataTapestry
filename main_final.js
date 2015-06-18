@@ -201,8 +201,8 @@ function updateopt()
 	var options = document.getElementsByClassName('option')[0];
 	if(optmenu)
 	{
-		options.style.left = '203px';
-		options.style.top = '82px';
+		options.style.left = '235px';
+		options.style.top = '30px';
 	}
 	else
 	{
@@ -264,7 +264,8 @@ function updatelist() //Update list html
 		document.getElementById("co"+i).checked = true;
 	}
 	var len = tdat.length;
-	tlist.innerHTML = '<br>';
+	// tlist.innerHTML = '<br>';
+	tlist.innerHTML = '';
 	for (var c = 0; c < 10; c++)
 	{
 		tlist.innerHTML += '<div class="item" onclick=clickitem(this,'+tdat[c].nll+','+c+','+i+',"'+tdat[c].cID+'","'+tdat[c].wiki_url+'") onmouseout=stopitem(this,'+c+') onmouseover=moveitem(this,'+tdat[c].nll+','+c+','+i+',"'+tdat[c].cID+'")><div class="name">'+(c+1)+'.&nbsp'+tdat[c].loc_name+'</div><img src="content/'+tdat[c].image+'" alt="'+tdat[c].loc_name+'"align="right"></div>';
@@ -484,6 +485,7 @@ function getmID() //Get mIDs and generate options
 			document.getElementById("opt_color"+ind.toString()).value = datcolors[ind];
 			document.getElementById("opt_color"+ind.toString()).onchange = update;
 		}
+		$(document.getElementById('scheck0'))[0].checked = true;
 		$($(document.getElementsByClassName('option')[0]).children('label')[0]).children('input')[0].checked = autochange;
 		/*$($(document.getElementsByClassName('option')[0]).children('label')[1]).children('input')[0].checked = weighted;
 		$($(document.getElementsByClassName('option')[0]).children('label')[1]).children('input')[0].onclick = updatelist;*/
@@ -580,7 +582,14 @@ function lltoval(ll) //Convert input latlon string to numerical latlon coords
 
 function about()
 {
-	openmode(window.location.href+'/about')
+	openmode(window.location.href+'about')
+}
+
+function twitter(){
+	var url = ' https://twitter.com/intent/tweet?text=What%20Humans%20Think%20About%20Earth.%20datatapestry.media.mit.edu&hashtags=datatapestry&';
+	var newwindow=window.open(url,'name','height=250,width=500');
+	if (window.focus) {newwindow.focus()}
+	return false;
 }
 
 function colorave(cset)
@@ -717,7 +726,7 @@ function disptt(cID)
 	var r = document.getElementById(cID).r.baseVal.value*zoom.scale()
 	$.getJSON('https://www.qnt.io/api/scores?pID=earth_tapestry&cID='+cID+'&key=54c67cc51c61be6e9acb1159', function(c)
 	{
-		var ttstring = '<div id="title" onclick=openmode("'+d.wiki_url+'")>'+d.loc_name+'</div><img src="content/'+d.image+'" alt="'+d.loc_name+'" onclick=openmode("'+d.wiki_url+'")><div id="sub">'+d.geo+'</div><div id="sub">'+d.ll+'</div>';
+		var ttstring = '<div id="title" onclick=openmode("'+d.wiki_url+'")>'+d.loc_name+'<span class="wiki-link-text">(wiki)</span></div><img src="content/'+d.image+'" alt="'+d.loc_name+'" onclick=openmode("'+d.wiki_url+'")><div id="sub">'+d.geo+'</div><div id="sub">'+d.ll+'</div>';
 		ttstring += '<div id="datawrap"><div class="h1">Metric</div>'
 		ttstring += '<div class="h2">Rank</div>'
 		ttstring += '<div class="h2">Score</div>'
@@ -737,7 +746,7 @@ function disptt(cID)
 			}
 		}
 		ttdiv.transition().duration(200).style("opacity", 0.97)
-		ttdiv.html(ttstring+'</div><div id="desc">&nbsp&nbsp&nbsp&nbsp'+d.desc+'</div>')
+		ttdiv.html(ttstring+'</div><div id="desc">'+d.desc+'</div>')
 			.style("left", function(d)
 			{
 				if(circ.left+r+512+16 < width+252)

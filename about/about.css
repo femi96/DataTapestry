@@ -1,0 +1,31 @@
+html,body{
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	opacit
+}
+body{
+/*	background: url(oldmap2.jpg) no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;*/
+	background-color: #F6F0E6;
+	overflow-x:hidden; 
+}
+div.about-page{
+	font-family: Lato;
+	/*background-color: #9B9382;*/
+	margin: 0px;
+	padding: 20px 100px;
+	
+}
+
+a{
+	color: #70944D;
+}
+
+h1,h2,h3{
+	font-weight: normal;
+}
