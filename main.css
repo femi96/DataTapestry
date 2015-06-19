@@ -22,6 +22,7 @@ body
 	font-family: Lato;
 	background-color: #9B9382;
 	margin: 0px;
+	overflow: hidden;
 }
 .col
 {
@@ -270,6 +271,7 @@ body
 	width:100%;
 	height: calc(100% - 30px);
 	overflow: scroll;
+	overflow-x: hidden;
 }
 
 
@@ -279,7 +281,7 @@ body
 	width: 252px;
 	margin-top: 12px;
 	height: calc(100% - 399px);
-	overflow: scroll;
+	overflow: hidden;
 	position: relative;
 }
 	.rank .title
@@ -623,6 +625,7 @@ div.bottom-half:hover{
 	border-color: #212c17;
 	border-radius: 4px;
 	text-align: left;
+	z-index: 50;
 }
 	.tooltip img
 	{
