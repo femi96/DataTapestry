@@ -739,7 +739,7 @@ function disptt(cID)
 			if(ran != undefined)
 			{
 				ttstring += '<div class="c1">'+datmet[ind].charAt(0).toUpperCase()+datmet[ind].substring(1)+'</div>'
-				ttstring += '<div class="c2">'+c[0].ranks[mID]+'</div>'
+				ttstring += '<div class="c2">'+(c[0].ranks[mID]+1)+'</div>'
 				ttstring += '<div class="c2">'+(c[0].scoreVector[mID]/50).toFixed(3)+'</div>'
 				ttstring += '<div class="c2">'+c[0].numVotes[mID]+'</div>'
 				ttstring += '<div class="c2">'+c[0].numTies[mID]+'</div>'
