@@ -513,7 +513,7 @@ function getidat(i) //Recursive function for getting data
 	//idat = {cID, ll, nll, vote, voteavg, loc_name, wiki_url, desc, image}
 	var idat = [];
 	//This url orders top first, because sort=1
-	var idaturl = "https://www.qnt.io/api/results?pID=earth_tapestry&mID="+datmIDs[i]+"&limit="+datlim+"&skip=5&sort=1&key=54c67cc51c61be6e9acb1159";
+	var idaturl = "https://www.qnt.io/api/results?pID=earth_tapestry&mID="+datmIDs[i]+"&limit="+datlim+"&sort=1&key=54c67cc51c61be6e9acb1159";
 	$.getJSON(idaturl,function(data)
 	{
 		var cc = 0;
