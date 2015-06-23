@@ -3,7 +3,7 @@
 //TFX for things that need to be changed. Stands for ToFix
 
 //Speration charactes for latlon to decimal conversion. These values dont work.
-var sep = ['\xB0','\x2032','\x2033'];
+var sep = ['\u00b0','\u2032','\u2033'];
 
 //For getting mIDs. URL Str
 var mIDurl = "https://www.qnt.io/api/displaymetrics?pID=earth_tapestry&mode=all&key=54c67cc51c61be6e9acb1159";
@@ -90,14 +90,8 @@ var timeout = [null,null,null,null,null,null,null,null,null,null]
 
 window.onload = function()
 {
-	$.getJSON('https://www.qnt.io/api/results?pID=earth_tapestry&mID=54dcfc4f87f85f1b3989e61c&limit=500&skip=5&sort=1&key=54c67cc51c61be6e9acb1159',function(fthis)
-	{
-		//TFX This is a workaround because the values for sep don't work how they need to.
-		var needthis = fthis.results[3].content_data.lat_long_alt;
-		sep = [needthis[2], needthis[5], needthis[8]];
-		getmID();
-		mapworld();
-	});
+	getmID();
+	mapworld();
 }
 $(window).resize(function()
 {
